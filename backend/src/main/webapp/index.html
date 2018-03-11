@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script type="text/javascript" src="/_ah/channel/jsapi"></script>
+<script type="text/javascript">
+
+    function getFromSmartObject() {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:10500/testserver";
+
+        xmlhttp.onreadystatechange = function() {
+             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                gapi.client.messaging.messagingEndpoint.sendMessage({'message': xmlhttp.responseText}).execute();
+             }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
+
+    function onOpened() {
+        console.log("Channel opened!");
+    }
+
+    function onMessage(msg) {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:10500/HTTPServer/"+msg.data;   //{\"server\":\"Arduino\", \"resource\":\"temperature-resource\"}";
+        console.log("Making request on "+url);
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { //
+               gapi.client.messaging.messagingEndpoint.sendUpdate({'value': xmlhttp.responseText}).execute();
+               console.log("Response: "+xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+        //var obj = {};
+        //obj.reqtype = msg.data;
+        //if (typeof window.callPhantom === 'function') {
+        //    window.callPhantom(obj);
+        //}
+        return msg.data;
+    }
+
+    function onError(err) {
+        console.log(err);
+    }
+
+    function onClose() {
+        console.log("Channel closed!");
+    }
+
+    function testMessage() {
+        gapi.client.channel.channelEndpoint.sendOnChannel().execute();
+    }
+
+    function createChannel() {
+        console.log('Initializing Channel...');
+            gapi.client.channel.channelEndpoint.createChannel().execute(
+                function(response) {
+                    if(!response.code) {
+                        console.log("Token: "+response.token);
+                        channel = new goog.appengine.Channel(response.token);
+                        socket = channel.open();
+                        socket.onopen = onOpened;
+                        socket.onmessage = onMessage;
+                        socket.onerror = onError;
+                        socket.onclose = onClose;
+                    }
+                }
+            );
+    }
+
+    // This is called initially
+    function init() {
+      var apiName = 'channel' //Remember 'messaging' here
+      var apiVersion = 'v1'
+      var apiRoot = 'https://' + window.location.host + '/_ah/api';
+      if (window.location.hostname == 'localhost'
+          || window.location.hostname == '127.0.0.1'
+          || ((window.location.port != "") && (window.location.port > 1023))) {
+            // We're probably running against the DevAppServer
+            apiRoot = 'http://' + window.location.host + '/_ah/api';
+      }
+      var channelCallback = function() {
+        createChannel();
+      }
+      var messagingCallback = function() {
+
+      }
+      var datastoreCallback = function() {
+
+      }
+
+      //.then(function() { console.log('Channel API loaded.'); }); Require JQuery. (See index2 include tags)
+      gapi.client.load(apiName, apiVersion, channelCallback, apiRoot);
+      gapi.client.load('messaging', apiVersion, messagingCallback, apiRoot);
+      gapi.client.load('datastore', apiVersion, datastoreCallback, apiRoot);
+      //#######INSERT HERE DATASTORE API LOADING#########
+    }
+
+</script>
+<!--
+ Load the Google APIs Client Library for JavaScript
+ More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
+-->
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
+</body>
+</html>

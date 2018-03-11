@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:translationZ="2dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/resource_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="19sp"
+        android:textColor="#000000"
+        android:layout_alignParentStart="true"
+        android:gravity="bottom"/>
+
+    <TextView
+        android:id="@+id/resource_details"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textSize="13sp"
+        android:textColor="#555555"
+        android:layout_below="@+id/resource_name"
+        android:gravity="top"/>
+
+    <ImageView
+        android:id="@+id/observing_state"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_toStartOf="@+id/type_ico"
+        android:paddingTop="12dp"
+	    android:paddingBottom="12dp"/>
+
+	<ImageView
+		android:id="@+id/type_ico"
+		android:layout_width="30dp"
+		android:layout_height="50dp"
+		android:layout_toStartOf="@+id/value"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp"/>
+
+    <ProgressBar
+	    android:id="@+id/loading"
+	    android:layout_width="70dp"
+	    android:layout_height="45dp"
+	    android:layout_margin="5dp"
+	    android:layout_alignParentEnd="true"
+	    android:visibility="gone"
+	    android:padding="5dp"
+	    android:indeterminate="true"
+	    android:elevation="0dp"
+	    android:translationZ="2dp"
+	    android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:layout_margin="5dp"
+        android:textSize="25sp"
+        android:textColor="#000000"
+        android:gravity="center_vertical"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:elevation="0dp"
+        android:translationZ="5dp"
+        android:background="@android:color/white"/>
+</RelativeLayout>

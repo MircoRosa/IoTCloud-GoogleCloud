@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView android:text="CoAP Server"
+        android:id="@+id/display_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textSize="30dp"/>
+
+    <TextView android:text="Resource"
+        android:id="@+id/display_resource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="2"
+        android:textSize="50dp"/>
+
+    <TextView android:text="Value"
+        android:id="@+id/display_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="3"
+        android:textSize="70dp"/>
+
+    <!--TODO Don't use weights here-->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:columnCount="2"
+        android:rowCount="2">
+
+            <Spinner
+                android:id="@+id/serverspinner"
+                android:layout_columnWeight="2"
+                android:layout_rowWeight="1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"/>
+            <Spinner
+                android:id="@+id/resourcespinner"
+                android:layout_columnWeight="2"
+                android:layout_rowWeight="1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"/>
+
+            <Button
+                android:id="@+id/getbutton"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:textSize="20dp"
+                android:text="GET"/>
+            <Button
+                android:id="@+id/observebutton"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:textSize="20dp"
+                android:text="OBSERVE"/>
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/regbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Register"/>
+
+</LinearLayout>
