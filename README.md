@@ -1,4 +1,4 @@
-# IoTCloud - CoAP
+# IoTCloud - Google Cloud
 IoT Cloud is an architecture that aims to bridge networks of CoAP constrained nodes (located in LANs) with Internet-connected clients (such as Android devices), in order to eliminate geographical restrictions without sacrificing performances.
 
 The following scheme provides a complete view of the structure:
